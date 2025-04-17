@@ -26,7 +26,7 @@ public class BusinessPartnerController {
             <?xml version="1.0" encoding="utf-8"?>
             <edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2008/09/edm" Version="4.0">
               <edmx:DataServices>
-                <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="API_BUSINESS_PARTNER">
+                <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="API_BUSINESS_PARTNER">
                   <EntityType Name="A_BusinessPartner">
                     <Key>
                       <PropertyRef Name="BusinessPartner"/>
