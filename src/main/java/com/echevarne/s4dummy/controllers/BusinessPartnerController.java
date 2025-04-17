@@ -24,7 +24,7 @@ public class BusinessPartnerController {
     public ResponseEntity<String> getMetadata() {
         String metadataXml = """
             <?xml version="1.0" encoding="utf-8"?>
-            <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+            <edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2008/09/edm" Version="4.0">
               <edmx:DataServices>
                 <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="API_BUSINESS_PARTNER">
                   <EntityType Name="A_BusinessPartner">
