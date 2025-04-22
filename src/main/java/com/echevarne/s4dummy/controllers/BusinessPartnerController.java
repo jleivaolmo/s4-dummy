@@ -50,6 +50,6 @@ public class BusinessPartnerController {
 
         return ResponseEntity.ok()
             .header("Content-Type", "application/xml")
-            .body(metadataXml);
+            .body(metadataXml.stripLeading());
     }
 }
