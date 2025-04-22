@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -54,8 +55,8 @@ public class BusinessPartnerController {
 	record DummyResponse(BusinessPartner d) {
 	}
 
-	@GetMapping("/$metadata")
-	public ResponseEntity<String> getMetadata() {
+	@GetMapping(value = "/$metadata", produces = MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<String> getMetadata(@RequestHeader(value = "x-csrf-token", required = false) String csrfToken) {
 		String metadataXml = """
 				         <?xml version="1.0" encoding="utf-8"?>
 				<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
@@ -81,8 +82,14 @@ public class BusinessPartnerController {
 				  </edmx:DataServices>
 				</edmx:Edmx>
 				         """;
+		
+		HttpHeaders headers = new HttpHeaders();
+	    if ("Fetch".equalsIgnoreCase(csrfToken)) {
+	        headers.set("x-csrf-token", "fake-token-12345");
+	        headers.set("Set-Cookie", "SAP_SESSIONID=FAKE123SESSION");
+	    }
 
-		return ResponseEntity.ok().header("Content-Type", "application/xml").body(metadataXml.stripLeading());
+		return new ResponseEntity<>(metadataXml.stripLeading(), headers, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/A_BusinessPartner", produces = MediaType.APPLICATION_JSON_VALUE)
