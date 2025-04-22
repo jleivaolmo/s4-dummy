@@ -55,25 +55,26 @@ public class BusinessPartnerController {
 	@GetMapping(value = "/A_BusinessPartner", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> getBusinessPartner(@RequestParam Map<String, String> params) {
 
-		return Map.of("d",
+		Object[] element = new Object[] { Map.of("__metadata",
+				Map.of("id", "https://example.com/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('10000001')", "uri",
+						"https://example.com/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('10000001')", "type",
+						"API_BUSINESS_PARTNER.A_BusinessPartner"),
+				"BusinessPartner", "10000001", "FirstName", "Juan", "LastName", "Pérez", "Customer", "", "to_BuPaIdentification",
 				Map.of("results",
-						new Object[] { Map.of("__metadata",
-								Map.of("id", "https://example.com/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('10000001')", "uri",
-										"https://example.com/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('10000001')", "type",
-										"API_BUSINESS_PARTNER.A_BusinessPartner"),
-								"BusinessPartner", "10000001", "FirstName", "Juan", "LastName", "Pérez", "Customer", null, "to_BuPaIdentification",
-								Map.of("results",
-										new Object[] { Map.of("__metadata", Map.of("type", "API_BUSINESS_PARTNER.BuPaIdentification"), "IdentificationType",
-												"XX1", "IdentificationNumber", "1234567890") }),
-								"to_BusinessPartnerAddress",
-								Map.of("results",
-										new Object[] { Map.of("__metadata", Map.of("type", "API_BUSINESS_PARTNER.BusinessPartnerAddress"), "CityName",
-												"Buenos Aires", "StreetName", "Av. Siempre Viva", "PostalCode", "1000", "to_EmailAddress",
-												Map.of("results", new Object[] { Map.of("EmailAddress", "juan.perez@example.com") }), "to_MobilePhoneNumber",
-												Map.of("results", new Object[] { Map.of("PhoneNumber", "+5491112345678") }), "to_PhoneNumber",
-												Map.of("results", new Object[] { Map.of("PhoneNumber", "01112345678") })) }),
-								"to_BusinessPartnerRole", Map.of("results", new Object[] { Map.of("BusinessPartnerRole", "FLCU01") }), "to_BusinessPartnerTax",
-								Map.of("results", new Object[] { Map.of("BPTaxType", "VAT", "BPTaxNumber", "20304050607") }), "to_Customer",
-								Map.of("results", new Object[] { Map.of("Customer", "10000001", "CustomerName", "Juan Pérez") })) }));
+						new Object[] { Map.of("__metadata", Map.of("type", "API_BUSINESS_PARTNER.BuPaIdentification"), "IdentificationType", "XX1",
+								"IdentificationNumber", "1234567890") }),
+				"to_BusinessPartnerAddress",
+				Map.of("results",
+						new Object[] { Map.of("__metadata", Map.of("type", "API_BUSINESS_PARTNER.BusinessPartnerAddress"), "CityName", "Buenos Aires",
+								"StreetName", "Av. Siempre Viva", "PostalCode", "1000", "to_EmailAddress",
+								Map.of("results", new Object[] { Map.of("EmailAddress", "juan.perez@example.com") }), "to_MobilePhoneNumber",
+								Map.of("results", new Object[] { Map.of("PhoneNumber", "+5491112345678") }), "to_PhoneNumber",
+								Map.of("results", new Object[] { Map.of("PhoneNumber", "01112345678") })) }),
+				"to_BusinessPartnerRole", Map.of("results", new Object[] { Map.of("BusinessPartnerRole", "FLCU01") }), "to_BusinessPartnerTax",
+				Map.of("results", new Object[] { Map.of("BPTaxType", "VAT", "BPTaxNumber", "20304050607") }), "to_Customer",
+				Map.of("results", new Object[] { Map.of("Customer", "10000001", "CustomerName", "Juan Pérez") })) };
+		
+		Map<String, Object> response = Map.of("d", Map.of("results", element));
+		return response;
 	}
 }
