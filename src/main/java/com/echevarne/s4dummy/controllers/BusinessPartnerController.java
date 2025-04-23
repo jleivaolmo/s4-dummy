@@ -2,6 +2,8 @@ package com.echevarne.s4dummy.controllers;
 
 import com.echevarne.s4dummy.model.BusinessPartner;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/sap/opu/odata/sap/API_BUSINESS_PARTNER")
+@Slf4j
 public class BusinessPartnerController {
 	
 	// Simulación de base de datos en memoria
@@ -38,13 +41,18 @@ public class BusinessPartnerController {
     }
     
 	@PostMapping(value = "/A_BusinessPartner", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> createBusinessPartner(@RequestBody Map<String, Object> input) {
-		String id = (String) input.get("BusinessPartner");
-		if (id == null) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing BusinessPartner ID");
+	public Map<String, Object> createBusinessPartner(@RequestBody Map<String, Object> input,
+			@RequestHeader(value = "x-csrf-token", required = false) String csrfToken) {
+		log.info("Se llama a createBusinessPartner con parametros: " + input);
+		Map<String, Object> response = null;
+		try {
+			String id = (String) input.get("BusinessPartner");
+			dataStore.put(id, input);
+			response = Map.of("d", addMetadata(input));
+		} catch (Exception e) {
+			log.error("Error al crear BusinessPartner:" + e, e);
 		}
-		dataStore.put(id, input);
-		return Map.of("d", addMetadata(input));
+		return response;
 	}
 	
 	@PatchMapping(value = "/A_BusinessPartner('{id}')", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
