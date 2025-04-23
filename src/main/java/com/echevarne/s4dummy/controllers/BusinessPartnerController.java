@@ -1,28 +1,20 @@
 package com.echevarne.s4dummy.controllers;
 
 import com.echevarne.s4dummy.model.BusinessPartner;
-
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/sap/opu/odata/sap/API_BUSINESS_PARTNER")
 @Slf4j
 public class BusinessPartnerController {
 	
-	// Simulación de base de datos en memoria
-    private final Map<String, Map<String, Object>> dataStore = new ConcurrentHashMap<>();
-    
     @RequestMapping(method = RequestMethod.HEAD)
     public ResponseEntity<Void> handleHead(@RequestHeader(value = "x-csrf-token", required = false) String csrfFetch) {
         HttpHeaders headers = new HttpHeaders();
@@ -46,8 +38,6 @@ public class BusinessPartnerController {
 		log.info("Se llama a createBusinessPartner con parametros: " + input);
 		Map<String, Object> response = null;
 		try {
-			String id = (String) input.get("BusinessPartner");
-			dataStore.put(id, input);
 			response = Map.of("d", addMetadata(input));
 		} catch (Exception e) {
 			log.error("Error al crear BusinessPartner:" + e, e);
@@ -57,21 +47,15 @@ public class BusinessPartnerController {
 	
 	@PatchMapping(value = "/A_BusinessPartner('{id}')", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, Object> updateBusinessPartner(@PathVariable String id, @RequestBody Map<String, Object> input) {
-        Map<String, Object> existing = dataStore.get(id);
-        if (existing == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "BusinessPartner not found: " + id);
-        }
-
-        existing.putAll(input);
-        return Map.of("d", addMetadata(existing));
+        return Map.of("d", addMetadata(input));
     }
 
     // Helper para incluir __metadata en la respuesta
     private Map<String, Object> addMetadata(Map<String, Object> data) {
         Map<String, Object> result = new LinkedHashMap<>(data);
         result.put("__metadata", Map.of(
-                "id", "https://example.com/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('" + data.get("BusinessPartner") + "')",
-                "uri", "https://example.com/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('" + data.get("BusinessPartner") + "')",
+                "id", "https://example.com/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('" + data.get("Customer") + "')",
+                "uri", "https://example.com/sap/opu/odata/sap/API_BUSINESS_PARTNER/A_BusinessPartner('" + data.get("Customer") + "')",
                 "type", "API_BUSINESS_PARTNER.A_BusinessPartner"
         ));
         return result;
