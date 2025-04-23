@@ -84,17 +84,92 @@ public class BusinessPartnerController {
 				        <Key>
 				          <PropertyRef Name="BusinessPartner"/>
 				        </Key>
-				        <Property Name="BusinessPartnerGrouping" Type="Edm.String" Nullable="false"/>
 				        <Property Name="BusinessPartner" Type="Edm.String" Nullable="false"/>
-				        <Property Name="FirstName" Type="Edm.String"/>
-				        <Property Name="LastName" Type="Edm.String"/>
-				        <Property Name="BusinessPartnerFullName" Type="Edm.String"/>
+				        <Property Name="Customer" Type="Edm.String"/>
 				        <Property Name="BusinessPartnerCategory" Type="Edm.String"/>
-				        <Property Name="Gender" Type="Edm.String"/>
+				        <Property Name="FormOfAddress" Type="Edm.String"/>
+				        <Property Name="Language" Type="Edm.String"/>
+				        <Property Name="SearchTerm1" Type="Edm.String"/>
+				        <Property Name="OrganizationBPName1" Type="Edm.String"/>
+				        <Property Name="OrganizationBPName4" Type="Edm.String"/>
+				        <Property Name="CorrespondenceLanguage" Type="Edm.String"/>
+				        <Property Name="BusinessPartnerGrouping" Type="Edm.String"/>
+				
+				        <NavigationProperty Name="to_BusinessPartnerAddress" Relationship="API_BUSINESS_PARTNER.A_BusinessPartner_to_Address" ToRole="Address" FromRole="BusinessPartner"/>
+				        <NavigationProperty Name="to_BusinessPartnerRole" Relationship="API_BUSINESS_PARTNER.A_BusinessPartner_to_Role" ToRole="Role" FromRole="BusinessPartner"/>
+				        <NavigationProperty Name="to_Customer" Relationship="API_BUSINESS_PARTNER.A_BusinessPartner_to_Customer" ToRole="Customer" FromRole="BusinessPartner"/>
+				      </EntityType>
+				
+				      <!-- Address -->
+				      <EntityType Name="A_BusinessPartnerAddress">
+				        <Key>
+				          <PropertyRef Name="BusinessPartner"/>
+				          <PropertyRef Name="AddressID"/>
+				        </Key>
+				        <Property Name="BusinessPartner" Type="Edm.String"/>
+				        <Property Name="AddressID" Type="Edm.String"/>
+				        <Property Name="Country" Type="Edm.String"/>
 				        <Property Name="Language" Type="Edm.String"/>
 				      </EntityType>
-				      <EntityContainer Name="container" m:IsDefaultEntityContainer="true">
+				
+				      <!-- Role -->
+				      <EntityType Name="A_BusinessPartnerRole">
+				        <Key>
+				          <PropertyRef Name="BusinessPartner"/>
+				          <PropertyRef Name="BusinessPartnerRole"/>
+				        </Key>
+				        <Property Name="BusinessPartner" Type="Edm.String"/>
+				        <Property Name="BusinessPartnerRole" Type="Edm.String"/>
+				        <Property Name="ValidFrom" Type="Edm.DateTime"/>
+				        <Property Name="ValidTo" Type="Edm.DateTime"/>
+				      </EntityType>
+				
+				      <!-- Customer -->
+				      <EntityType Name="A_Customer">
+				        <Key>
+				          <PropertyRef Name="Customer"/>
+				        </Key>
+				        <Property Name="Customer" Type="Edm.String"/>
+				      </EntityType>
+				
+				      <!-- Relaciones -->
+				      <Association Name="A_BusinessPartner_to_Address">
+				        <End Type="API_BUSINESS_PARTNER.A_BusinessPartner" Role="BusinessPartner" Multiplicity="1"/>
+				        <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerAddress" Role="Address" Multiplicity="*"/>
+				      </Association>
+				
+				      <Association Name="A_BusinessPartner_to_Role">
+				        <End Type="API_BUSINESS_PARTNER.A_BusinessPartner" Role="BusinessPartner" Multiplicity="1"/>
+				        <End Type="API_BUSINESS_PARTNER.A_BusinessPartnerRole" Role="Role" Multiplicity="*"/>
+				      </Association>
+				
+				      <Association Name="A_BusinessPartner_to_Customer">
+				        <End Type="API_BUSINESS_PARTNER.A_BusinessPartner" Role="BusinessPartner" Multiplicity="1"/>
+				        <End Type="API_BUSINESS_PARTNER.A_Customer" Role="Customer" Multiplicity="1"/>
+				      </Association>
+				
+				      <!-- Conjunto de entidades -->
+				      <EntityContainer Name="container" m:IsDefaultEntityContainer="true" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
 				        <EntitySet Name="A_BusinessPartner" EntityType="API_BUSINESS_PARTNER.A_BusinessPartner"/>
+				        <EntitySet Name="A_BusinessPartnerAddress" EntityType="API_BUSINESS_PARTNER.A_BusinessPartnerAddress"/>
+				        <EntitySet Name="A_BusinessPartnerRole" EntityType="API_BUSINESS_PARTNER.A_BusinessPartnerRole"/>
+				        <EntitySet Name="A_Customer" EntityType="API_BUSINESS_PARTNER.A_Customer"/>
+				
+				        <!-- Asignación de navegación -->
+				        <AssociationSet Name="A_BusinessPartner_to_Address" Association="API_BUSINESS_PARTNER.A_BusinessPartner_to_Address">
+				          <End Role="BusinessPartner" EntitySet="A_BusinessPartner"/>
+				          <End Role="Address" EntitySet="A_BusinessPartnerAddress"/>
+				        </AssociationSet>
+				
+				        <AssociationSet Name="A_BusinessPartner_to_Role" Association="API_BUSINESS_PARTNER.A_BusinessPartner_to_Role">
+				          <End Role="BusinessPartner" EntitySet="A_BusinessPartner"/>
+				          <End Role="Role" EntitySet="A_BusinessPartnerRole"/>
+				        </AssociationSet>
+				
+				        <AssociationSet Name="A_BusinessPartner_to_Customer" Association="API_BUSINESS_PARTNER.A_BusinessPartner_to_Customer">
+				          <End Role="BusinessPartner" EntitySet="A_BusinessPartner"/>
+				          <End Role="Customer" EntitySet="A_Customer"/>
+				        </AssociationSet>
 				      </EntityContainer>
 				    </Schema>
 				  </edmx:DataServices>
