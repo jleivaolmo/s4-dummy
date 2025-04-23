@@ -20,6 +20,23 @@ public class BusinessPartnerController {
 	// Simulación de base de datos en memoria
     private final Map<String, Map<String, Object>> dataStore = new ConcurrentHashMap<>();
     
+    @RequestMapping(method = RequestMethod.HEAD)
+    public ResponseEntity<Void> handleHead(@RequestHeader(value = "x-csrf-token", required = false) String csrfFetch) {
+        HttpHeaders headers = new HttpHeaders();
+        
+        // Simular el token CSRF solo si se solicita
+        if ("Fetch".equalsIgnoreCase(csrfFetch)) {
+            headers.set("x-csrf-token", "dummy-token-12345");
+        }
+
+        return new ResponseEntity<>(headers, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<String> getServiceRoot() {
+        return ResponseEntity.ok("Service is running.");
+    }
+    
 	@PostMapping(value = "/A_BusinessPartner", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> createBusinessPartner(@RequestBody Map<String, Object> input) {
 		String id = (String) input.get("BusinessPartner");
