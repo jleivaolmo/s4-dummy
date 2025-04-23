@@ -84,6 +84,7 @@ public class BusinessPartnerController {
 				        <Key>
 				          <PropertyRef Name="BusinessPartner"/>
 				        </Key>
+				        <Property Name="BusinessPartnerGrouping" Type="Edm.String" Nullable="false"/>
 				        <Property Name="BusinessPartner" Type="Edm.String" Nullable="false"/>
 				        <Property Name="FirstName" Type="Edm.String"/>
 				        <Property Name="LastName" Type="Edm.String"/>
