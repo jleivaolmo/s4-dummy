@@ -141,6 +141,9 @@ public class SalesOrderSimulationController {
 				    <Property Name="ReferenceSDDocumentItem" Type="Edm.String" MaxLength="6"/>
 				    <Property Name="CustomerPaymentTerms" Type="Edm.String" MaxLength="4"/>
 				    <Property Name="SalesDocumentRjcnReason" Type="Edm.String" MaxLength="2"/>
+				    <Property Name="ZZ1_SIM_PMATN_SDI" Type="Edm.String" Nullable="true"/>
+				    <Property Name="ZZ1_SIM_DELPR_SDI" Type="Edm.String" Nullable="true"/>
+				    <Property Name="ZZ1_SIM_SPART_SDI" Type="Edm.String" Nullable="true"/>
 				    <NavigationProperty Name="to_Partner" Relationship="API_SALES_ORDER_SIMULATION_SRV.assoc_036B9A16D7EAF5FC436B5909FDAB55C7" FromRole="FromRole_assoc_036B9A16D7EAF5FC436B5909FDAB55C7" ToRole="ToRole_assoc_036B9A16D7EAF5FC436B5909FDAB55C7"/>
 				    <NavigationProperty Name="to_PricingElement" Relationship="API_SALES_ORDER_SIMULATION_SRV.assoc_1397E5E95667491CB0DAB8030565236A" FromRole="FromRole_assoc_1397E5E95667491CB0DAB8030565236A" ToRole="ToRole_assoc_1397E5E95667491CB0DAB8030565236A"/>
 				    <NavigationProperty Name="to_SalesOrder" Relationship="API_SALES_ORDER_SIMULATION_SRV.assoc_53816724613E7ECBF4FB53952D6D1176" FromRole="FromRole_assoc_53816724613E7ECBF4FB53952D6D1176" ToRole="ToRole_assoc_53816724613E7ECBF4FB53952D6D1176"/>
