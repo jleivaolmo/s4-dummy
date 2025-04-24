@@ -314,6 +314,10 @@ public class SalesOrderSimulationController {
 				    <Property Name="ReferenceSDDocument" Type="Edm.String" MaxLength="10"/>
 				    <Property Name="CustomerPaymentTerms" Type="Edm.String" MaxLength="4"/>
 				    <Property Name="PaymentMethod" Type="Edm.String" MaxLength="1"/>
+				    <Property Name="ZZ1_SIM_CARGO_SDH" Type="Edm.String" Nullable="true"/>
+				    <Property Name="ZZ1_SIM_FECP_SDH" Type="Edm.DateTime" Precision="0"/>
+				    <Property Name="ZZ1_SIM_TIPOPET_SDH" Type="Edm.Int32" Nullable="true"/>
+				    <Property Name="ZZ1_SIM_TIPOCON_SDH" Type="Edm.String" Nullable="true"/>
 				    <NavigationProperty Name="to_Credit" Relationship="API_SALES_ORDER_SIMULATION_SRV.assoc_09E895DA67A75176385AC79D884760B5" FromRole="FromRole_assoc_09E895DA67A75176385AC79D884760B5" ToRole="ToRole_assoc_09E895DA67A75176385AC79D884760B5"/>
 				    <NavigationProperty Name="to_Item" Relationship="API_SALES_ORDER_SIMULATION_SRV.assoc_86B3631913169957CBD0C2992D08B371" FromRole="FromRole_assoc_86B3631913169957CBD0C2992D08B371" ToRole="ToRole_assoc_86B3631913169957CBD0C2992D08B371"/>
 				    <NavigationProperty Name="to_Partner" Relationship="API_SALES_ORDER_SIMULATION_SRV.assoc_C5EED2E8FFB18945CB96D5EBA826FB83" FromRole="FromRole_assoc_C5EED2E8FFB18945CB96D5EBA826FB83" ToRole="ToRole_assoc_C5EED2E8FFB18945CB96D5EBA826FB83"/>
