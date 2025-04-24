@@ -908,6 +908,7 @@ public class SalesOrderSimulationController extends AbstractController {
 		} catch (Exception e) {
 			log.error("Error al crear salesOrderSimulation:" + e, e);
 		}
+		log.info("Se devuelve respuesta: " + response);
 		return response;
 	}
 	
@@ -915,8 +916,8 @@ public class SalesOrderSimulationController extends AbstractController {
     private Map<String, Object> addMetadata(Map<String, Object> data) {
         Map<String, Object> result = new LinkedHashMap<>(data);
         result.put("__metadata", Map.of(
-                "id", "https://example.com/sap/opu/odata/sap/API_SALES_ORDER_SIMULATION_SRV/A_SalesOrderSimulation('" + data.get("SalesOrder") + "')",
-                "uri", "https://example.com/sap/opu/odata/sap/API_SALES_ORDER_SIMULATION_SRV/A_SalesOrderSimulation('" + data.get("SalesOrder") + "')",
+                "id", "https://example.com/sap/opu/odata/sap/API_SALES_ORDER_SIMULATION_SRV/A_SalesOrderSimulation('" + data.get("PurchaseOrderByCustomer") + "')",
+                "uri", "https://example.com/sap/opu/odata/sap/API_SALES_ORDER_SIMULATION_SRV/A_SalesOrderSimulation('" + data.get("PurchaseOrderByCustomer") + "')",
                 "type", "API_SALES_ORDER_SIMULATION_SRV.A_SalesOrderSimulation"
         ));
         return result;
