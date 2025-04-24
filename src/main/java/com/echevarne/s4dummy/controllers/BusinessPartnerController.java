@@ -13,25 +13,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/sap/opu/odata/sap/API_BUSINESS_PARTNER")
 @Slf4j
-public class BusinessPartnerController {
+public class BusinessPartnerController  extends AbstractController {
 	
-    @RequestMapping(method = RequestMethod.HEAD)
-    public ResponseEntity<Void> handleHead(@RequestHeader(value = "x-csrf-token", required = false) String csrfFetch) {
-        HttpHeaders headers = new HttpHeaders();
-        
-        // Simular el token CSRF solo si se solicita
-        if ("Fetch".equalsIgnoreCase(csrfFetch)) {
-            headers.set("x-csrf-token", "dummy-token-12345");
-        }
-
-        return new ResponseEntity<>(headers, HttpStatus.OK);
-    }
-
-    @GetMapping
-    public ResponseEntity<String> getServiceRoot() {
-        return ResponseEntity.ok("Service is running.");
-    }
-    
 	@PostMapping(value = "/A_BusinessPartner", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> createBusinessPartner(@RequestBody Map<String, Object> input,
 			@RequestHeader(value = "x-csrf-token", required = false) String csrfToken) {
@@ -50,7 +33,7 @@ public class BusinessPartnerController {
         return Map.of("d", addMetadata(input));
     }
 
-    // Helper para incluir __metadata en la respuesta
+	// Helper para incluir __metadata en la respuesta
     private Map<String, Object> addMetadata(Map<String, Object> data) {
         Map<String, Object> result = new LinkedHashMap<>(data);
         result.put("__metadata", Map.of(
@@ -60,7 +43,7 @@ public class BusinessPartnerController {
         ));
         return result;
     }
-
+    
 	record DummyResponse(BusinessPartner d) {
 	}
 

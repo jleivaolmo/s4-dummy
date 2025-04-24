@@ -1,37 +1,24 @@
 package com.echevarne.s4dummy.controllers;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/sap/opu/odata/sap/API_SALES_ORDER_SIMULATION_SRV")
 @Slf4j
-public class SalesOrderSimulationController {
-
-	@RequestMapping(method = RequestMethod.HEAD)
-	public ResponseEntity<Void> handleHead(@RequestHeader(value = "x-csrf-token", required = false) String csrfFetch) {
-		HttpHeaders headers = new HttpHeaders();
-
-		// Simular el token CSRF solo si se solicita
-		if ("Fetch".equalsIgnoreCase(csrfFetch)) {
-			headers.set("x-csrf-token", "dummy-token-12345");
-		}
-
-		return new ResponseEntity<>(headers, HttpStatus.OK);
-	}
-
-	@GetMapping
-	public ResponseEntity<String> getServiceRoot() {
-		return ResponseEntity.ok("Service is running.");
-	}
+public class SalesOrderSimulationController extends AbstractController {
 
 	@GetMapping(value = "/$metadata", produces = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<String> getMetadata(@RequestHeader(value = "x-csrf-token", required = false) String csrfToken) {
@@ -910,5 +897,29 @@ public class SalesOrderSimulationController {
 				+ metadataXml_9.stripLeading();
 		return new ResponseEntity<>(metadataXml, headers, HttpStatus.OK);
 	}
+	
+	@PostMapping(value = "/A_SalesOrderSimulation", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> createSalesOrderSimulation(@RequestBody Map<String, Object> input,
+			@RequestHeader(value = "x-csrf-token", required = false) String csrfToken) {
+		log.info("Se llama a salesOrderSimulation con parametros: " + input);
+		Map<String, Object> response = null;
+		try {
+			response = Map.of("d", addMetadata(input));
+		} catch (Exception e) {
+			log.error("Error al crear salesOrderSimulation:" + e, e);
+		}
+		return response;
+	}
+	
+	// Helper para incluir __metadata en la respuesta
+    private Map<String, Object> addMetadata(Map<String, Object> data) {
+        Map<String, Object> result = new LinkedHashMap<>(data);
+        result.put("__metadata", Map.of(
+                "id", "https://example.com/sap/opu/odata/sap/API_SALES_ORDER_SIMULATION_SRV/A_SalesOrderSimulation('" + data.get("SalesOrder") + "')",
+                "uri", "https://example.com/sap/opu/odata/sap/API_SALES_ORDER_SIMULATION_SRV/A_SalesOrderSimulation('" + data.get("SalesOrder") + "')",
+                "type", "API_SALES_ORDER_SIMULATION_SRV.A_SalesOrderSimulation"
+        ));
+        return result;
+    }
 
 }
