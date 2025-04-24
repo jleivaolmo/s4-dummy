@@ -1,7 +1,11 @@
 package com.echevarne.s4dummy.controllers;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -913,7 +917,18 @@ public class SalesOrderSimulationController extends AbstractController {
 	}
 	
 	// Helper para incluir __metadata en la respuesta
-    private Map<String, Object> addMetadata(Map<String, Object> data) {
+    @SuppressWarnings("unchecked")
+	private Map<String, Object> addMetadata(Map<String, Object> data) {
+    	data.remove("to_Pricing");
+    	data.remove("to_PricingElement");
+    	ArrayList<LinkedHashMap<?,?>> items = (ArrayList<LinkedHashMap<?,?>>) data.get("to_Item");
+    	for (LinkedHashMap<?,?> item: items) {
+    		ArrayList<LinkedHashMap<?,?>> itemPricing = (ArrayList<LinkedHashMap<?, ?>>) item.get("to_PricingElement");
+    		itemPricing.clear();
+			addItemPricing(itemPricing, "ZPR0", "EUR");
+			addItemPricing(itemPricing, "ZPR1", "EUR");
+			addItemPricing(itemPricing, "MWST", "EUR");
+    	}
         Map<String, Object> result = new LinkedHashMap<>(data);
         result.put("__metadata", Map.of(
                 "id", "https://example.com/sap/opu/odata/sap/API_SALES_ORDER_SIMULATION_SRV/A_SalesOrderSimulation('" + data.get("PurchaseOrderByCustomer") + "')",
@@ -922,5 +937,17 @@ public class SalesOrderSimulationController extends AbstractController {
         ));
         return result;
     }
+
+	private void addItemPricing(ArrayList<LinkedHashMap<?, ?>> itemPricing, String conditionType, String conditionCurrency) {
+		LinkedHashMap<String, Object> pricing = new LinkedHashMap<>();
+		pricing.put("ConditionType", conditionType);
+		double value = 100.0 * Math.random();
+		BigDecimal bdValue = BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP);
+		pricing.put("ConditionRateValue", bdValue);
+		pricing.put("ConditionCurrency", conditionCurrency);
+		pricing.put("ConditionAmount", bdValue);
+		pricing.put("TransactionCurrency", "EUR");
+		itemPricing.add(pricing);
+	}
 
 }
