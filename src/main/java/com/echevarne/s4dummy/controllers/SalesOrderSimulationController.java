@@ -40,7 +40,7 @@ public class SalesOrderSimulationController {
 				<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
 				  <edmx:DataServices m:DataServiceVersion="2.0"
 				      xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
-				    <Schema Namespace="API_SALES_ORDER_SIMULATION_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+				    <Schema Namespace="API_SALES_ORDER_SIMULATION_SRV" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
 				        <EntityType Name="A_SalesOrderCreditSimulationType" sap:label="Sales Order Credit Simulation (API)" sap:content-version="1">
 				            <Key>
 				                <PropertyRef Name="SalesOrder"/>
