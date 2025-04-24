@@ -77,34 +77,34 @@ public class SalesOrderSimulationController extends AbstractController {
 				    <Property Name="MaterialByCustomer" Type="Edm.String" MaxLength="35"/>
 				    <Property Name="PricingDate" Type="Edm.DateTime" Precision="0"/>
 				    <Property Name="PricingReferenceMaterial" Type="Edm.String" MaxLength="40"/>
-				    <Property Name="RequestedQuantity" Type="Edm.Decimal" Precision="15" Scale="3"/>
+				    <Property Name="RequestedQuantity" Type="Edm.Double" Precision="15" Scale="3"/>
 				    <Property Name="RequestedQuantityUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="RequestedQuantitySAPUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="RequestedQuantityISOUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="OrderQuantityUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="OrderQuantitySAPUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="OrderQuantityISOUnit" Type="Edm.String" MaxLength="3"/>
-				    <Property Name="ConfdDelivQtyInOrderQtyUnit" Type="Edm.Decimal" Precision="15" Scale="3"/>
-				    <Property Name="ItemGrossWeight" Type="Edm.Decimal" Precision="15" Scale="3"/>
-				    <Property Name="ItemNetWeight" Type="Edm.Decimal" Precision="15" Scale="3"/>
+				    <Property Name="ConfdDelivQtyInOrderQtyUnit" Type="Edm.Double" Precision="15" Scale="3"/>
+				    <Property Name="ItemGrossWeight" Type="Edm.Double" Precision="15" Scale="3"/>
+				    <Property Name="ItemNetWeight" Type="Edm.Double" Precision="15" Scale="3"/>
 				    <Property Name="ItemWeightUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="ItemWeightSAPUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="ItemWeightISOUnit" Type="Edm.String" MaxLength="3"/>
-				    <Property Name="ItemVolume" Type="Edm.Decimal" Precision="15" Scale="3"/>
+				    <Property Name="ItemVolume" Type="Edm.Double" Precision="15" Scale="3"/>
 				    <Property Name="ItemVolumeUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="ItemVolumeSAPUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="ItemVolumeISOUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="OriginallyRequestedMaterial" Type="Edm.String" MaxLength="40"/>
 				    <Property Name="TransactionCurrency" Type="Edm.String" MaxLength="5"/>
-				    <Property Name="NetAmount" Type="Edm.Decimal" Precision="16" Scale="3"/>
-				    <Property Name="TaxAmount" Type="Edm.Decimal" Precision="14" Scale="3"/>
-				    <Property Name="CostAmount" Type="Edm.Decimal" Precision="14" Scale="3"/>
-				    <Property Name="Subtotal1Amount" Type="Edm.Decimal" Precision="14" Scale="3"/>
-				    <Property Name="Subtotal2Amount" Type="Edm.Decimal" Precision="14" Scale="3"/>
-				    <Property Name="Subtotal3Amount" Type="Edm.Decimal" Precision="14" Scale="3"/>
-				    <Property Name="Subtotal4Amount" Type="Edm.Decimal" Precision="14" Scale="3"/>
-				    <Property Name="Subtotal5Amount" Type="Edm.Decimal" Precision="14" Scale="3"/>
-				    <Property Name="Subtotal6Amount" Type="Edm.Decimal" Precision="14" Scale="3"/>
+				    <Property Name="NetAmount" Type="Edm.Double" Precision="16" Scale="3"/>
+				    <Property Name="TaxAmount" Type="Edm.Double" Precision="14" Scale="3"/>
+				    <Property Name="CostAmount" Type="Edm.Double" Precision="14" Scale="3"/>
+				    <Property Name="Subtotal1Amount" Type="Edm.Double" Precision="14" Scale="3"/>
+				    <Property Name="Subtotal2Amount" Type="Edm.Double" Precision="14" Scale="3"/>
+				    <Property Name="Subtotal3Amount" Type="Edm.Double" Precision="14" Scale="3"/>
+				    <Property Name="Subtotal4Amount" Type="Edm.Double" Precision="14" Scale="3"/>
+				    <Property Name="Subtotal5Amount" Type="Edm.Double" Precision="14" Scale="3"/>
+				    <Property Name="Subtotal6Amount" Type="Edm.Double" Precision="14" Scale="3"/>
 				    <Property Name="MaterialSubstitutionReason" Type="Edm.String" MaxLength="4"/>
 				    <Property Name="MaterialGroup" Type="Edm.String" MaxLength="9"/>
 				    <Property Name="MaterialPricingGroup" Type="Edm.String" MaxLength="2"/>
@@ -156,22 +156,22 @@ public class SalesOrderSimulationController extends AbstractController {
 				    <Property Name="ConditionType" Type="Edm.String" MaxLength="4"/>
 				    <Property Name="PriceConditionDeterminationDte" Type="Edm.DateTime" Precision="0"/>
 				    <Property Name="ConditionCalculationType" Type="Edm.String" MaxLength="3"/>
-				    <Property Name="ConditionBaseValue" Type="Edm.Decimal" Precision="24" Scale="9"/>
-				    <Property Name="ConditionRateValue" Type="Edm.Decimal" Precision="24" Scale="9"/>
+				    <Property Name="ConditionBaseValue" Type="Edm.Double" Precision="24" Scale="9"/>
+				    <Property Name="ConditionRateValue" Type="Edm.Double" Precision="24" Scale="9"/>
 				    <Property Name="ConditionCurrency" Type="Edm.String" MaxLength="5"/>
-				    <Property Name="ConditionQuantity" Type="Edm.Decimal" Precision="5" Scale="0"/>
+				    <Property Name="ConditionQuantity" Type="Edm.Double" Precision="5" Scale="0"/>
 				    <Property Name="ConditionQuantityUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="ConditionQuantitySAPUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="ConditionQuantityISOUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="ConditionIsForStatistics" Type="Edm.Boolean"/>
 				    <Property Name="ConditionOrigin" Type="Edm.String" MaxLength="1"/>
 				    <Property Name="IsGroupCondition" Type="Edm.String" MaxLength="1"/>
-				    <Property Name="ConditionAmount" Type="Edm.Decimal" Precision="16" Scale="3"/>
+				    <Property Name="ConditionAmount" Type="Edm.Double" Precision="16" Scale="3"/>
 				    <Property Name="TransactionCurrency" Type="Edm.String" MaxLength="5"/>
 				    <Property Name="ConditionInactiveReason" Type="Edm.String" MaxLength="1"/>
 				    <Property Name="ConditionClass" Type="Edm.String" MaxLength="1"/>
 				    <Property Name="PricingScaleBasis" Type="Edm.String" MaxLength="3"/>
-				    <Property Name="ConditionScaleBasisValue" Type="Edm.Decimal" Precision="24" Scale="9"/>
+				    <Property Name="ConditionScaleBasisValue" Type="Edm.Double" Precision="24" Scale="9"/>
 				    <Property Name="ConditionIsManuallyChanged" Type="Edm.Boolean"/>
 				    <NavigationProperty Name="to_SalesOrder" Relationship="API_SALES_ORDER_SIMULATION_SRV.assoc_C8327E2027C5F32FF63661754166938B" FromRole="FromRole_assoc_C8327E2027C5F32FF63661754166938B" ToRole="ToRole_assoc_C8327E2027C5F32FF63661754166938B"/>
 				    <NavigationProperty Name="to_SalesOrderItem" Relationship="API_SALES_ORDER_SIMULATION_SRV.assoc_9F3D7582A67C0D2CE50C97F35CA6BCA5" FromRole="FromRole_assoc_9F3D7582A67C0D2CE50C97F35CA6BCA5" ToRole="ToRole_assoc_9F3D7582A67C0D2CE50C97F35CA6BCA5"/>
@@ -204,22 +204,22 @@ public class SalesOrderSimulationController extends AbstractController {
 				    <Property Name="ConditionType" Type="Edm.String" MaxLength="4"/>
 				    <Property Name="PriceConditionDeterminationDte" Type="Edm.DateTime" Precision="0"/>
 				    <Property Name="ConditionCalculationType" Type="Edm.String" MaxLength="3"/>
-				    <Property Name="ConditionBaseValue" Type="Edm.Decimal" Precision="24" Scale="9"/>
-				    <Property Name="ConditionRateValue" Type="Edm.Decimal" Precision="24" Scale="9"/>
+				    <Property Name="ConditionBaseValue" Type="Edm.Double" Precision="24" Scale="9"/>
+				    <Property Name="ConditionRateValue" Type="Edm.Double" Precision="24" Scale="9"/>
 				    <Property Name="ConditionCurrency" Type="Edm.String" MaxLength="5"/>
-				    <Property Name="ConditionQuantity" Type="Edm.Decimal" Precision="5" Scale="0"/>
+				    <Property Name="ConditionQuantity" Type="Edm.Double" Precision="5" Scale="0"/>
 				    <Property Name="ConditionQuantityUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="ConditionQuantitySAPUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="ConditionQuantityISOUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="ConditionIsForStatistics" Type="Edm.Boolean"/>
 				    <Property Name="ConditionOrigin" Type="Edm.String" MaxLength="1"/>
 				    <Property Name="IsGroupCondition" Type="Edm.String" MaxLength="1"/>
-				    <Property Name="ConditionAmount" Type="Edm.Decimal" Precision="16" Scale="3"/>
+				    <Property Name="ConditionAmount" Type="Edm.Double" Precision="16" Scale="3"/>
 				    <Property Name="TransactionCurrency" Type="Edm.String" MaxLength="5"/>
 				    <Property Name="ConditionInactiveReason" Type="Edm.String" MaxLength="1"/>
 				    <Property Name="ConditionClass" Type="Edm.String" MaxLength="1"/>
 				    <Property Name="PricingScaleBasis" Type="Edm.String" MaxLength="3"/>
-				    <Property Name="ConditionScaleBasisValue" Type="Edm.Decimal" Precision="24" Scale="9"/>
+				    <Property Name="ConditionScaleBasisValue" Type="Edm.Double" Precision="24" Scale="9"/>
 				    <Property Name="ConditionIsManuallyChanged" Type="Edm.Boolean"/>
 				    <NavigationProperty Name="to_SalesOrder" Relationship="API_SALES_ORDER_SIMULATION_SRV.assoc_2D7F894DE8E30E5BEDD13142E51B8F5F" FromRole="FromRole_assoc_2D7F894DE8E30E5BEDD13142E51B8F5F" ToRole="ToRole_assoc_2D7F894DE8E30E5BEDD13142E51B8F5F"/>
 				</EntityType>
@@ -228,7 +228,7 @@ public class SalesOrderSimulationController extends AbstractController {
 				        <PropertyRef Name="SalesOrder"/>
 				    </Key>
 				    <Property Name="SalesOrder" Type="Edm.String" Nullable="false" MaxLength="10"/>
-				    <Property Name="TotalNetAmount" Type="Edm.Decimal" Precision="16" Scale="3"/>
+				    <Property Name="TotalNetAmount" Type="Edm.Double" Precision="16" Scale="3"/>
 				    <Property Name="TransactionCurrency" Type="Edm.String" MaxLength="5"/>
 				    <NavigationProperty Name="to_SalesOrder" Relationship="API_SALES_ORDER_SIMULATION_SRV.assoc_DE0AC028DA6E05F98B684C56601E6E40" FromRole="FromRole_assoc_DE0AC028DA6E05F98B684C56601E6E40" ToRole="ToRole_assoc_DE0AC028DA6E05F98B684C56601E6E40"/>
 				</EntityType>
@@ -246,10 +246,10 @@ public class SalesOrderSimulationController extends AbstractController {
 				    <Property Name="OrderQuantityUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="OrderQuantitySAPUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="OrderQuantityISOUnit" Type="Edm.String" MaxLength="3"/>
-				    <Property Name="ScheduleLineOrderQuantity" Type="Edm.Decimal" Precision="13" Scale="3"/>
-				    <Property Name="ConfdOrderQtyByMatlAvailCheck" Type="Edm.Decimal" Precision="13" Scale="3"/>
-				    <Property Name="OpenConfdDelivQtyInOrdQtyUnit" Type="Edm.Decimal" Precision="13" Scale="3"/>
-				    <Property Name="CorrectedQtyInOrderQtyUnit" Type="Edm.Decimal" Precision="13" Scale="3"/>
+				    <Property Name="ScheduleLineOrderQuantity" Type="Edm.Double" Precision="13" Scale="3"/>
+				    <Property Name="ConfdOrderQtyByMatlAvailCheck" Type="Edm.Double" Precision="13" Scale="3"/>
+				    <Property Name="OpenConfdDelivQtyInOrdQtyUnit" Type="Edm.Double" Precision="13" Scale="3"/>
+				    <Property Name="CorrectedQtyInOrderQtyUnit" Type="Edm.Double" Precision="13" Scale="3"/>
 				    <NavigationProperty Name="to_SalesOrder" Relationship="API_SALES_ORDER_SIMULATION_SRV.assoc_0A661E00C02ECA9E45F715E1F13EA2C2" FromRole="FromRole_assoc_0A661E00C02ECA9E45F715E1F13EA2C2" ToRole="ToRole_assoc_0A661E00C02ECA9E45F715E1F13EA2C2"/>
 				    <NavigationProperty Name="to_SalesOrderItem" Relationship="API_SALES_ORDER_SIMULATION_SRV.assoc_5F2ADB264BF23A2504FDED7DD5AE3EEB" FromRole="FromRole_assoc_5F2ADB264BF23A2504FDED7DD5AE3EEB" ToRole="ToRole_assoc_5F2ADB264BF23A2504FDED7DD5AE3EEB"/>
 				</EntityType>
