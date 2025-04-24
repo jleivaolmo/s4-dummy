@@ -157,7 +157,7 @@ public class SalesOrderSimulationController extends AbstractController {
 				    <Property Name="PriceConditionDeterminationDte" Type="Edm.DateTime" Precision="0"/>
 				    <Property Name="ConditionCalculationType" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="ConditionBaseValue" Type="Edm.Double" Precision="24" Scale="9"/>
-				    <Property Name="ConditionRateValue" Type="Edm.Double" Precision="24" Scale="9"/>
+				    <Property Name="ConditionRateValue" Type="Edm.Decimal" Precision="24" Scale="9"/>
 				    <Property Name="ConditionCurrency" Type="Edm.String" MaxLength="5"/>
 				    <Property Name="ConditionQuantity" Type="Edm.Double" Precision="5" Scale="0"/>
 				    <Property Name="ConditionQuantityUnit" Type="Edm.String" MaxLength="3"/>
@@ -205,7 +205,7 @@ public class SalesOrderSimulationController extends AbstractController {
 				    <Property Name="PriceConditionDeterminationDte" Type="Edm.DateTime" Precision="0"/>
 				    <Property Name="ConditionCalculationType" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="ConditionBaseValue" Type="Edm.Double" Precision="24" Scale="9"/>
-				    <Property Name="ConditionRateValue" Type="Edm.Double" Precision="24" Scale="9"/>
+				    <Property Name="ConditionRateValue" Type="Edm.Decimal" Precision="24" Scale="9"/>
 				    <Property Name="ConditionCurrency" Type="Edm.String" MaxLength="5"/>
 				    <Property Name="ConditionQuantity" Type="Edm.Double" Precision="5" Scale="0"/>
 				    <Property Name="ConditionQuantityUnit" Type="Edm.String" MaxLength="3"/>
