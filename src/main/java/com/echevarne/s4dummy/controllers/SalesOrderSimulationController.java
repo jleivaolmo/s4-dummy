@@ -77,7 +77,7 @@ public class SalesOrderSimulationController extends AbstractController {
 				    <Property Name="MaterialByCustomer" Type="Edm.String" MaxLength="35"/>
 				    <Property Name="PricingDate" Type="Edm.DateTime" Precision="0"/>
 				    <Property Name="PricingReferenceMaterial" Type="Edm.String" MaxLength="40"/>
-				    <Property Name="RequestedQuantity" Type="Edm.Double" Precision="15" Scale="3"/>
+				    <Property Name="RequestedQuantity" Type="Edm.Decimal" Precision="15" Scale="3"/>
 				    <Property Name="RequestedQuantityUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="RequestedQuantitySAPUnit" Type="Edm.String" MaxLength="3"/>
 				    <Property Name="RequestedQuantityISOUnit" Type="Edm.String" MaxLength="3"/>
