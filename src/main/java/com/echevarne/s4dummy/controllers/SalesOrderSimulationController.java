@@ -933,7 +933,7 @@ public class SalesOrderSimulationController extends AbstractController {
         result.put("__metadata", Map.of(
                 "id", "https://example.com/sap/opu/odata/sap/API_SALES_ORDER_SIMULATION_SRV/A_SalesOrderSimulation('" + data.get("PurchaseOrderByCustomer") + "')",
                 "uri", "https://example.com/sap/opu/odata/sap/API_SALES_ORDER_SIMULATION_SRV/A_SalesOrderSimulation('" + data.get("PurchaseOrderByCustomer") + "')",
-                "type", "API_SALES_ORDER_SIMULATION_SRV.A_SalesOrderSimulation"
+                "type", "API_SALES_ORDER_SIMULATION_SRV.A_SalesOrderSimulationType"
         ));
         return result;
     }
