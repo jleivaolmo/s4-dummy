@@ -904,7 +904,7 @@ public class SalesOrderSimulationController extends AbstractController {
 				+ metadataXml_9.stripLeading();
 		return new ResponseEntity<>(metadataXml, headers, HttpStatus.OK);
 	}
-	
+
 	@PostMapping(value = "/A_SalesOrderSimulation", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, Object> createSalesOrderSimulation(@RequestBody Map<String, Object> input,
 			@RequestHeader(value = "x-csrf-token", required = false) String csrfToken) {
@@ -918,36 +918,38 @@ public class SalesOrderSimulationController extends AbstractController {
 		log.info("Se devuelve respuesta: " + response);
 		return response;
 	}
-	
+
 	// Helper para incluir __metadata en la respuesta
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	private Map<String, Object> addMetadata(Map<String, Object> data) {
-    	data.remove("to_PricingElement");
-    	data.put("ZZ1_SIM_PLTYP_SDH","TARIFA");
-    	data.put("ZZ1_SIM_KONDA_SDH","GRUPOPRECIOCLIENTE");
-    	data.put("ZZ1_SIM_KURST_SDH","TIPOCOTIZACION");
-    	ArrayList<LinkedHashMap<?,?>> items = (ArrayList<LinkedHashMap<?,?>>) data.get("to_Item");
-    	BigDecimal totalNetAmount = BigDecimal.ZERO;
-    	for (LinkedHashMap<?,?> item: items) {
-    		ArrayList<LinkedHashMap<?,?>> itemPricing = (ArrayList<LinkedHashMap<?, ?>>) item.get("to_PricingElement");
-    		itemPricing.clear();
+		data.remove("to_PricingElement");
+		data.put("ZZ1_SIM_PLTYP_SDH", "TARIFA");
+		data.put("ZZ1_SIM_KONDA_SDH", "GRUPOPRECIOCLIENTE");
+		data.put("ZZ1_SIM_KURST_SDH", "TIPOCOTIZACION");
+		ArrayList<LinkedHashMap<String, Object>> items = (ArrayList<LinkedHashMap<String, Object>>) data.get("to_Item");
+		BigDecimal totalNetAmount = BigDecimal.ZERO;
+		for (LinkedHashMap<String, Object> item : items) {
+			ArrayList<LinkedHashMap<?, ?>> itemPricing = (ArrayList<LinkedHashMap<?, ?>>) item.get("to_PricingElement");
+			itemPricing.clear();
 			addItemPricing(itemPricing, "ZPR0", "EUR");
 			BigDecimal netAmount = addItemPricing(itemPricing, "ZPR1", "EUR");
 			totalNetAmount = totalNetAmount.add(netAmount);
-			addItemPricing(itemPricing, "MWST", "EUR");
-    	}
-    	LinkedHashMap<String,Object> pricing = (LinkedHashMap<String, Object>) data.get("to_Pricing");
-    	pricing.put("SalesOrder","SALESORDER");
-    	pricing.put("TotalNetAmount",String.valueOf(totalNetAmount));
-    	pricing.put("TransactionCurrency","EUR");
-        Map<String, Object> result = new LinkedHashMap<>(data);
-        result.put("__metadata", Map.of(
-                "id", "https://example.com/sap/opu/odata/sap/API_SALES_ORDER_SIMULATION_SRV/A_SalesOrderSimulation('" + data.get("PurchaseOrderByCustomer") + "')",
-                "uri", "https://example.com/sap/opu/odata/sap/API_SALES_ORDER_SIMULATION_SRV/A_SalesOrderSimulation('" + data.get("PurchaseOrderByCustomer") + "')",
-                "type", "API_SALES_ORDER_SIMULATION_SRV.A_SalesOrderSimulationType"
-        ));
-        return result;
-    }
+			BigDecimal taxAmount = addTaxPricing(itemPricing, "MWST", "EUR", netAmount);
+			item.put("NetAmount", String.valueOf(netAmount));
+			item.put("TaxAmount", String.valueOf(taxAmount));
+		}
+		LinkedHashMap<String, Object> pricing = (LinkedHashMap<String, Object>) data.get("to_Pricing");
+		pricing.put("SalesOrder", "SALESORDER");
+		pricing.put("TotalNetAmount", String.valueOf(totalNetAmount));
+		pricing.put("TransactionCurrency", "EUR");
+		Map<String, Object> result = new LinkedHashMap<>(data);
+		result.put("__metadata", Map.of("id",
+				"https://example.com/sap/opu/odata/sap/API_SALES_ORDER_SIMULATION_SRV/A_SalesOrderSimulation('" + data.get("PurchaseOrderByCustomer") + "')",
+				"uri",
+				"https://example.com/sap/opu/odata/sap/API_SALES_ORDER_SIMULATION_SRV/A_SalesOrderSimulation('" + data.get("PurchaseOrderByCustomer") + "')",
+				"type", "API_SALES_ORDER_SIMULATION_SRV.A_SalesOrderSimulationType"));
+		return result;
+	}
 
 	private BigDecimal addItemPricing(ArrayList<LinkedHashMap<?, ?>> itemPricing, String conditionType, String conditionCurrency) {
 		LinkedHashMap<String, Object> pricing = new LinkedHashMap<>();
@@ -960,6 +962,20 @@ public class SalesOrderSimulationController extends AbstractController {
 		pricing.put("TransactionCurrency", "EUR");
 		itemPricing.add(pricing);
 		return bdValue;
+	}
+
+	private BigDecimal addTaxPricing(ArrayList<LinkedHashMap<?, ?>> itemPricing, String conditionType, String conditionCurrency, BigDecimal netAmount) {
+		LinkedHashMap<String, Object> pricing = new LinkedHashMap<>();
+		pricing.put("ConditionType", conditionType);
+		double value = 21.0 * Math.random();
+		BigDecimal bdValue = BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP);
+		pricing.put("ConditionRateValue", String.valueOf(bdValue));
+		pricing.put("ConditionCurrency", conditionCurrency);
+		BigDecimal amount = bdValue.multiply(netAmount).divide(new BigDecimal("100")).setScale(2, RoundingMode.HALF_UP);
+		pricing.put("ConditionAmount", String.valueOf(amount));
+		pricing.put("TransactionCurrency", "EUR");
+		itemPricing.add(pricing);
+		return amount;
 	}
 
 }
