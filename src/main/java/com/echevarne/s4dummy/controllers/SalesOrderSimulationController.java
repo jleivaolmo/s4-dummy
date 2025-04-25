@@ -312,6 +312,9 @@ public class SalesOrderSimulationController extends AbstractController {
 				    <Property Name="ZZ1_SIM_FECP_SDH" Type="Edm.DateTime" Precision="0"/>
 				    <Property Name="ZZ1_SIM_TIPOPET_SDH" Type="Edm.Int32" Nullable="true"/>
 				    <Property Name="ZZ1_SIM_TIPOCON_SDH" Type="Edm.String" Nullable="true"/>
+				    <Property Name="ZZ1_SIM_PLTYP_SDH" Type="Edm.String" Nullable="true"/>
+				    <Property Name="ZZ1_SIM_KONDA_SDH" Type="Edm.String" Nullable="true"/>
+				    <Property Name="ZZ1_SIM_KURST_SDH" Type="Edm.String" Nullable="true"/>
 				    <NavigationProperty Name="to_Credit" Relationship="API_SALES_ORDER_SIMULATION_SRV.assoc_09E895DA67A75176385AC79D884760B5" FromRole="FromRole_assoc_09E895DA67A75176385AC79D884760B5" ToRole="ToRole_assoc_09E895DA67A75176385AC79D884760B5"/>
 				    <NavigationProperty Name="to_Item" Relationship="API_SALES_ORDER_SIMULATION_SRV.assoc_86B3631913169957CBD0C2992D08B371" FromRole="FromRole_assoc_86B3631913169957CBD0C2992D08B371" ToRole="ToRole_assoc_86B3631913169957CBD0C2992D08B371"/>
 				    <NavigationProperty Name="to_Partner" Relationship="API_SALES_ORDER_SIMULATION_SRV.assoc_C5EED2E8FFB18945CB96D5EBA826FB83" FromRole="FromRole_assoc_C5EED2E8FFB18945CB96D5EBA826FB83" ToRole="ToRole_assoc_C5EED2E8FFB18945CB96D5EBA826FB83"/>
@@ -919,16 +922,24 @@ public class SalesOrderSimulationController extends AbstractController {
 	// Helper para incluir __metadata en la respuesta
     @SuppressWarnings("unchecked")
 	private Map<String, Object> addMetadata(Map<String, Object> data) {
-    	data.remove("to_Pricing");
     	data.remove("to_PricingElement");
+    	data.put("ZZ1_SIM_PLTYP_SDH","TARIFA");
+    	data.put("ZZ1_SIM_KONDA_SDH","GRUPOPRECIOCLIENTE");
+    	data.put("ZZ1_SIM_KURST_SDH","TIPOCOTIZACION");
     	ArrayList<LinkedHashMap<?,?>> items = (ArrayList<LinkedHashMap<?,?>>) data.get("to_Item");
+    	BigDecimal totalNetAmount = BigDecimal.ZERO;
     	for (LinkedHashMap<?,?> item: items) {
     		ArrayList<LinkedHashMap<?,?>> itemPricing = (ArrayList<LinkedHashMap<?, ?>>) item.get("to_PricingElement");
     		itemPricing.clear();
 			addItemPricing(itemPricing, "ZPR0", "EUR");
-			addItemPricing(itemPricing, "ZPR1", "EUR");
+			BigDecimal netAmount = addItemPricing(itemPricing, "ZPR1", "EUR");
+			totalNetAmount = totalNetAmount.add(netAmount);
 			addItemPricing(itemPricing, "MWST", "EUR");
     	}
+    	LinkedHashMap<String,Object> pricing = (LinkedHashMap<String, Object>) data.get("to_Pricing");
+    	pricing.put("SalesOrder","SALESORDER");
+    	pricing.put("TotalNetAmount",String.valueOf(totalNetAmount));
+    	pricing.put("TransactionCurrency","EUR");
         Map<String, Object> result = new LinkedHashMap<>(data);
         result.put("__metadata", Map.of(
                 "id", "https://example.com/sap/opu/odata/sap/API_SALES_ORDER_SIMULATION_SRV/A_SalesOrderSimulation('" + data.get("PurchaseOrderByCustomer") + "')",
@@ -938,7 +949,7 @@ public class SalesOrderSimulationController extends AbstractController {
         return result;
     }
 
-	private void addItemPricing(ArrayList<LinkedHashMap<?, ?>> itemPricing, String conditionType, String conditionCurrency) {
+	private BigDecimal addItemPricing(ArrayList<LinkedHashMap<?, ?>> itemPricing, String conditionType, String conditionCurrency) {
 		LinkedHashMap<String, Object> pricing = new LinkedHashMap<>();
 		pricing.put("ConditionType", conditionType);
 		double value = 100.0 * Math.random();
@@ -948,6 +959,7 @@ public class SalesOrderSimulationController extends AbstractController {
 		pricing.put("ConditionAmount", String.valueOf(bdValue));
 		pricing.put("TransactionCurrency", "EUR");
 		itemPricing.add(pricing);
+		return bdValue;
 	}
 
 }
