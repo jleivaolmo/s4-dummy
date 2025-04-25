@@ -5,8 +5,6 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Random;
-
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -923,7 +921,7 @@ public class SalesOrderSimulationController extends AbstractController {
 	@SuppressWarnings("unchecked")
 	private Map<String, Object> addMetadata(Map<String, Object> data) {
 		data.remove("to_PricingElement");
-		data.put("ZZ1_SIM_PLTYP_SDH", "TARIFA");
+		data.put("ZZ1_SIM_PLTYP_SDH", "TR");
 		data.put("ZZ1_SIM_KONDA_SDH", "GRUPOPRECIOCLIENTE");
 		data.put("ZZ1_SIM_KURST_SDH", "TIPOCOTIZACION");
 		ArrayList<LinkedHashMap<String, Object>> items = (ArrayList<LinkedHashMap<String, Object>>) data.get("to_Item");
