@@ -929,10 +929,10 @@ public class SalesOrderSimulationController extends AbstractController {
 		for (LinkedHashMap<String, Object> item : items) {
 			ArrayList<LinkedHashMap<?, ?>> itemPricing = (ArrayList<LinkedHashMap<?, ?>>) item.get("to_PricingElement");
 			itemPricing.clear();
-			addItemPricing(itemPricing, "ZPR0", "EUR");
-			BigDecimal netAmount = addItemPricing(itemPricing, "ZPR1", "EUR");
+			addItemPricing(itemPricing, "ZPR0", "EUR", "1", "UN");
+			BigDecimal netAmount = addItemPricing(itemPricing, "ZPR1", "EUR", "0", "");
 			totalNetAmount = totalNetAmount.add(netAmount);
-			BigDecimal taxAmount = addTaxPricing(itemPricing, "MWST", "EUR", netAmount);
+			BigDecimal taxAmount = addTaxPricing(itemPricing, "MWST", "EUR", netAmount, "0", "");
 			item.put("NetAmount", String.valueOf(netAmount));
 			item.put("TaxAmount", String.valueOf(taxAmount));
 		}
@@ -949,7 +949,8 @@ public class SalesOrderSimulationController extends AbstractController {
 		return result;
 	}
 
-	private BigDecimal addItemPricing(ArrayList<LinkedHashMap<?, ?>> itemPricing, String conditionType, String conditionCurrency) {
+	private BigDecimal addItemPricing(ArrayList<LinkedHashMap<?, ?>> itemPricing, String conditionType, String conditionCurrency, String conditionQuantity,
+			String conditionQuantityUnit) {
 		LinkedHashMap<String, Object> pricing = new LinkedHashMap<>();
 		pricing.put("ConditionType", conditionType);
 		double value = 100.0 * Math.random();
@@ -958,11 +959,14 @@ public class SalesOrderSimulationController extends AbstractController {
 		pricing.put("ConditionCurrency", conditionCurrency);
 		pricing.put("ConditionAmount", String.valueOf(bdValue));
 		pricing.put("TransactionCurrency", "EUR");
+		pricing.put("ConditionQuantity", conditionQuantity);
+		pricing.put("ConditionQuantityUnit", conditionQuantityUnit);
 		itemPricing.add(pricing);
 		return bdValue;
 	}
 
-	private BigDecimal addTaxPricing(ArrayList<LinkedHashMap<?, ?>> itemPricing, String conditionType, String conditionCurrency, BigDecimal netAmount) {
+	private BigDecimal addTaxPricing(ArrayList<LinkedHashMap<?, ?>> itemPricing, String conditionType, String conditionCurrency, BigDecimal netAmount,
+			String conditionQuantity, String conditionQuantityUnit) {
 		LinkedHashMap<String, Object> pricing = new LinkedHashMap<>();
 		pricing.put("ConditionType", conditionType);
 		double value = 21.0 * Math.random();
@@ -972,6 +976,8 @@ public class SalesOrderSimulationController extends AbstractController {
 		BigDecimal amount = bdValue.multiply(netAmount).divide(new BigDecimal("100")).setScale(2, RoundingMode.HALF_UP);
 		pricing.put("ConditionAmount", String.valueOf(amount));
 		pricing.put("TransactionCurrency", "EUR");
+		pricing.put("ConditionQuantity", conditionQuantity);
+		pricing.put("ConditionQuantityUnit", conditionQuantityUnit);
 		itemPricing.add(pricing);
 		return amount;
 	}
