@@ -942,10 +942,10 @@ public class SalesOrderSimulationController extends AbstractController {
 		LinkedHashMap<String, Object> pricing = new LinkedHashMap<>();
 		pricing.put("ConditionType", conditionType);
 		double value = 100.0 * Math.random();
-		//BigDecimal bdValue = BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP);
-		pricing.put("ConditionRateValue", String.valueOf(value));
+		BigDecimal bdValue = BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP);
+		pricing.put("ConditionRateValue", String.valueOf(bdValue));
 		pricing.put("ConditionCurrency", conditionCurrency);
-		pricing.put("ConditionAmount", String.valueOf(value));
+		pricing.put("ConditionAmount", String.valueOf(bdValue));
 		pricing.put("TransactionCurrency", "EUR");
 		itemPricing.add(pricing);
 	}
