@@ -29,6 +29,11 @@
 	    <artifactId>lombok</artifactId>
 	    <scope>provided</scope>
 	</dependency>
+	<dependency>
+	    <groupId>com.google.auth</groupId>
+	    <artifactId>google-auth-library-oauth2-http</artifactId>
+	    <version>1.22.0</version>
+	 </dependency>
   </dependencies>
    <build>
     <plugins>
