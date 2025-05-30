@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -17,10 +18,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TokenController {
 
-	@GetMapping(value = "/getToken")
-	public ResponseEntity<String> getToken() {
+	@GetMapping(value = "/getToken/{micro}")
+	public ResponseEntity<String> getToken(@PathVariable("micro") String micro) {
 		String jsonPath = "c://temp//pj-ma-host-prod-eb47479170a2.json";
-		String targetAudience = "https://recepcion-676620684522.europe-southwest1.run.app";
+		String targetAudience = "https://" + micro + "-676620684522.europe-southwest1.run.app";
 		String idToken = null;
 
 		try {
