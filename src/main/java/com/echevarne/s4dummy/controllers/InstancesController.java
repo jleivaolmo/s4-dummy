@@ -26,7 +26,7 @@ public class InstancesController {
 	public ResponseEntity<String> getNumInstances(@PathVariable("micro") String micro) {
 		String response = null;
 		try (MetricServiceClient client = MetricServiceClient.create()) {
-			String projectId = "676620684522"; // o el ID del proyecto
+			String projectId = "pj-ma-host-prod"; // o el ID del proyecto
 	        String location = "europe-southwest1";
             /*String filter = String.format(
                 "metric.type=\"run.googleapis.com/container/instance_count\" AND " +
