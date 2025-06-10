@@ -28,12 +28,12 @@ public class InstancesController {
 		try (MetricServiceClient client = MetricServiceClient.create()) {
 			String projectId = "676620684522"; // o el ID del proyecto
 	        String location = "europe-southwest1";
-            String filter = String.format(
+            /*String filter = String.format(
                 "metric.type=\"run.googleapis.com/container/instance_count\" AND " +
                 "resource.label.\"service_name\"=\"%s\" AND resource.label.\"location\"=\"%s\"",
-                micro, location
-            );
-
+             ,   micro, location
+            )*/
+	        String filter = "metric.type=\"run.googleapis.com/container/instance_count\"";
             long nowMillis = Instant.now().toEpochMilli();
             TimeInterval interval = TimeInterval.newBuilder()
                     .setEndTime(Timestamps.fromMillis(nowMillis))
