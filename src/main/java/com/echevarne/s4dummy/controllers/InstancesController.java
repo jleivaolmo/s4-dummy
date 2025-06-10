@@ -44,14 +44,17 @@ public class InstancesController {
                     .build();
 
             int totalActiveInstances = 0;
-
+            int counter = 0;
+            int counter2 = 0;
             for (TimeSeries ts : client.listTimeSeries(request).iterateAll()) {
                 for (Point p : ts.getPointsList()) {
                     long value = p.getValue().getInt64Value();
                     totalActiveInstances += value;
+                    counter2 ++;
                 }
+                counter ++;
             }
-            response = "Instancias activas de " + micro + ": " + totalActiveInstances;
+            response = "Instancias de " + micro + ": " + totalActiveInstances + " Contador1: " + counter + " Contador2: " + counter2;
             log.info(response);
         } catch (Exception e) {
 			log.error("Error: " + e, e);
