@@ -22,7 +22,7 @@ import com.google.protobuf.util.Timestamps;
 @Slf4j
 public class InstancesController {
 	
-	@GetMapping(value = "/getNumInstances/{micro}")
+	@GetMapping(value = "/getNumInstances/{micro}/{tiempo}")
 	public ResponseEntity<String> getNumInstances(@PathVariable("micro") String micro, @PathVariable("tiempo") Long tiempo) {
 		String response = null;
 		try (MetricServiceClient client = MetricServiceClient.create()) {
