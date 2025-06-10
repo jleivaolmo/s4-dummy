@@ -23,7 +23,7 @@ import com.google.protobuf.util.Timestamps;
 public class InstancesController {
 	
 	@GetMapping(value = "/getNumInstances/{micro}")
-	public ResponseEntity<String> getNumInstances(@PathVariable("micro") String micro) {
+	public ResponseEntity<String> getNumInstances(@PathVariable("micro") String micro, @PathVariable("tiempo") Long tiempo) {
 		String response = null;
 		try (MetricServiceClient client = MetricServiceClient.create()) {
 			String projectId = "pj-ma-host-prod"; // o el ID del proyecto
@@ -34,7 +34,7 @@ public class InstancesController {
             long nowMillis = Instant.now().toEpochMilli();
             TimeInterval interval = TimeInterval.newBuilder()
                     .setEndTime(Timestamps.fromMillis(nowMillis))
-                    .setStartTime(Timestamps.fromMillis(nowMillis - 1000 * 1000)) // últimos 60 seg
+                    .setStartTime(Timestamps.fromMillis(nowMillis - tiempo * 1000)) 
                     .build();
             ListTimeSeriesRequest request = ListTimeSeriesRequest.newBuilder()
                     .setName(ProjectName.of(projectId).toString())
