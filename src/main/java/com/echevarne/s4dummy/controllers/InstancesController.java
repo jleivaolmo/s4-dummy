@@ -33,13 +33,14 @@ public class InstancesController {
                 "resource.label.\"service_name\"=\"%s\" AND resource.label.\"location\"=\"%s\"",
              ,   micro, location
             )*/
-	        String filter = "metric.type=\"run.googleapis.com/function/active_instances\"";
+	        String filter = "metric.type=\"run.googleapis.com/container/instance_count\"";
             long nowMillis = Instant.now().toEpochMilli();
             TimeInterval interval = TimeInterval.newBuilder()
                     .setEndTime(Timestamps.fromMillis(nowMillis))
                     .setStartTime(Timestamps.fromMillis(nowMillis - 60 * 1000)) // últimos 60 seg
                     .build();
-
+            log.info("ProjectName1=" + ProjectName.of(projectId).toString());
+            log.info("ProjectName2=" + ProjectName.of("676620684522").toString());
             ListTimeSeriesRequest request = ListTimeSeriesRequest.newBuilder()
                     .setName(ProjectName.of(projectId).toString())
                     .setFilter(filter)
