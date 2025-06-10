@@ -28,7 +28,9 @@ public class InstancesController {
 		try (MetricServiceClient client = MetricServiceClient.create()) {
 			String projectId = "pj-ma-host-prod"; // o el ID del proyecto
 	        String location = "europe-southwest1";
-	        String filter = "metric.type=\"run.googleapis.com/container/instance_count\"";
+	        //String filter = "metric.type=\"run.googleapis.com/container/instance_count\"";
+			String filter = String.format("metric.type=\"run.googleapis.com/container/active_instances\" AND " + 
+											"resource.label.\"service_name\"=\"%s\"", micro);
             long nowMillis = Instant.now().toEpochMilli();
             TimeInterval interval = TimeInterval.newBuilder()
                     .setEndTime(Timestamps.fromMillis(nowMillis))
