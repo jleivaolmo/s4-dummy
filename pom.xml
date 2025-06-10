@@ -34,6 +34,16 @@
 	    <artifactId>google-auth-library-oauth2-http</artifactId>
 	    <version>1.22.0</version>
 	 </dependency>
+	 <dependency>
+	 	<groupId>com.google.cloud</groupId>
+	  	<artifactId>google-cloud-monitoring</artifactId>
+	  	<version>3.34.0</version>
+	</dependency>
+	<dependency>
+	  <groupId>com.google.protobuf</groupId>
+	  <artifactId>protobuf-java-util</artifactId>
+	  <version>3.25.1</version> <!-- Asegúrate de usar una versión reciente -->
+	</dependency>
   </dependencies>
    <build>
     <plugins>
