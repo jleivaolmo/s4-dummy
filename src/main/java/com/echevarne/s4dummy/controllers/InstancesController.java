@@ -33,7 +33,7 @@ public class InstancesController {
                 "resource.label.\"service_name\"=\"%s\" AND resource.label.\"location\"=\"%s\"",
              ,   micro, location
             )*/
-	        String filter = "metric.type=\"run.googleapis.com/container/instance_count\"";
+	        String filter = "metric.type=\"run.googleapis.com/function/active_instances\"";
             long nowMillis = Instant.now().toEpochMilli();
             TimeInterval interval = TimeInterval.newBuilder()
                     .setEndTime(Timestamps.fromMillis(nowMillis))
